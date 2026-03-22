@@ -1,43 +1,66 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Books API</title>
-    <style>
-      body {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 40px;
-        background: #f4f4f4;
-        color: #1f2937;
-      }
+<html ng-app="myApp" ng-controller="myCtrl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gestión de Libros</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+  <script src="script.js"></script>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    table { border-collapse: collapse; width: 100%; }
+    th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+    th { background-color: #f2f2f2; }
+    input[type="text"], input[type="number"] { width: 100%; padding: 5px; }
+    button { margin-top: 10px; padding: 5px 10px; }
+  </style>
+</head>
+<body>
+  <h1>Gestión de Libros</h1>
 
-      main {
-        max-width: 720px;
-        margin: 0 auto;
-        background: #ffffff;
-        padding: 32px;
-        border-radius: 12px;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-      }
+  <h2>Añadir nuevo libro</h2>
+  <form ng-submit="add_book()">
+    <table>
+      <tr>
+        <td>Nombre:</td>
+        <td><input type="text" ng-model="Name" required></td>
+      </tr>
+      <tr>
+        <td>ISBN:</td>
+        <td><input type="text" ng-model="Isbn" required></td>
+      </tr>
+      <tr>
+        <td>Autor:</td>
+        <td><input type="text" ng-model="Author" required></td>
+      </tr>
+      <tr>
+        <td>Páginas:</td>
+        <td><input type="number" ng-model="Pages" required></td>
+      </tr>
+    </table>
+    <button type="submit">Añadir libro</button>
+  </form>
 
-      h1 {
-        margin-top: 0;
-      }
-
-      code {
-        background: #eef2ff;
-        padding: 2px 6px;
-        border-radius: 6px;
-      }
-    </style>
-  </head>
-  <body>
-    <main>
-      <h1>Books API</h1>
-      <p>La aplicacion Express y MongoDB esta lista.</p>
-      <p>Prueba los endpoints <code>GET /book</code> y <code>POST /book</code>.</p>
-    </main>
-  </body>
+  <h2>Lista de libros</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>ISBN</th>
+        <th>Autor</th>
+        <th>Páginas</th>
+        <th>Acción</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="book in books">
+        <td>{{book.name}}</td>
+        <td>{{book.isbn}}</td>
+        <td>{{book.author}}</td>
+        <td>{{book.pages}}</td>
+        <td><button ng-click="del_book(book)">Eliminar</button></td>
+      </tr>
+    </tbody>
+  </table>
+</body>
 </html>
